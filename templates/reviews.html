@@ -1,0 +1,40 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<div class="container">
+<h1>Ваш отзыв важен для нас</h1>
+
+{% for cat, msg in get_flashed_messages(True) %}
+<div class="flash {{ cat }}"> {{  msg  }}</div>
+{% endfor %}
+
+<form action="{{url_for('reviews')}}" method="post" class="form-reviews">
+    <p><label>Имя: </label> <input type="text" name="name" value="" required />
+    <p><label>Email: </label> <input type="text" name="email" value="" required />
+    <p><label>Ваш отзыв: </label>
+    <p><textarea name="message" rows=7 cols=40></textarea>
+    <p><input type="submit" value="отправить" />
+</form>
+
+
+<h2>Отзывы о нас</h2>
+<div class="card mb-3" style="max-width: 800px;">
+  {% for r in reviews %}
+    <div class="row g-0">
+      <div class="col-md-4">
+        <img src="..." class="img-fluid rounded-start" alt="">
+      </div>
+      <div class="col-md-8">
+        <div class="card-body">
+          <h5 class="card-title">{{ r.name }}</h5>
+          <p class="card-text"> {{ r.message }} </p>
+          <p class="card-text"><small class="text-body-secondary">{{ r.time }} </small></p>
+        </div>
+      </div>
+    </div>
+</div>
+{% endfor %}
+</div>
+
+
+{% endblock content %}
